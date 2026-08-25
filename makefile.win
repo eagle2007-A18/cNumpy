@@ -1,0 +1,57 @@
+# Project: Numpy
+# Makefile created by Red Panda C++ 3.4.3279
+
+CXX      = "g++.exe"
+CC       = "gcc.exe"
+NASM       = "D:/NASM/nasm.exe"
+WINDRES  = "windres.exe"
+RM       = del /q /f
+CD       = cd /d
+LIBS     = "-LD:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/lib" "-Wl,--stack,12582912" "-s" "-static"
+INCS     = "-ID:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include" "-ID:/raylib-master/src" "-IC:/Users/PC/AppData/Local/Programs/Python/Python314/include"
+CXXINCS  = "-ID:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include" "-ID:/raylib-master/src"
+CXXFLAGS = $(CXXINCS) "-fno-ms-extensions" "-O2" "-std=c++11" "-pipe" "-Wall" "-Wextra" "-Werror=return-type" "-Werror=vla"
+CFLAGS   = $(INCS) "-std=c11" "-fno-ms-extensions" "-O2" "-pipe" "-Wall" "-Wextra" "-Werror=implicit-int" "-Werror=return-type" "-Werror=vla"
+NASM_FLAGS   =  "-f" "elf64"
+WINDRESFLAGS = 
+RES      = Numpy_private.res
+OBJ      = linagle.o creation.o calculate.o reduction.o indexing.o internel.o shape.o $(RES)
+BIN      = libNumpy.a
+LINKOBJ  = "linagle.o" "creation.o" "calculate.o" "reduction.o" "indexing.o" "internel.o" "shape.o" "Numpy_private.res"
+CLEANOBJ = "linagle.o" "creation.o" "calculate.o" "reduction.o" "indexing.o" "internel.o" "shape.o" "Numpy_private.res" "libNumpy.a"
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	-$(RM) $(CLEANOBJ) >NUL 2>&1
+
+libNumpy.a: $(OBJ)
+	ar r "libNumpy.a" $(LINKOBJ)
+	ranlib "libNumpy.a"
+
+linagle.o: linagle.c numpy.h basic.h
+	$(CC) -c "linagle.c" -o "linagle.o" $(CFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
+
+creation.o: creation.c numpy.h basic.h
+	$(CC) -c "creation.c" -o "creation.o" $(CFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
+
+calculate.o: calculate.c numpy.h basic.h
+	$(CC) -c "calculate.c" -o "calculate.o" $(CFLAGS) 
+
+reduction.o: reduction.c numpy.h basic.h
+	$(CC) -c "reduction.c" -o "reduction.o" $(CFLAGS) 
+
+indexing.o: indexing.c numpy.h basic.h
+	$(CC) -c "indexing.c" -o "indexing.o" $(CFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
+
+internel.o: internel.c internel.h basic.h
+	$(CC) -c "internel.c" -o "internel.o" $(CFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
+
+shape.o: shape.c numpy.h basic.h
+	$(CC) -c "shape.c" -o "shape.o" $(CFLAGS) 
+
+Numpy_private.res: Numpy_private.rc 
+	$(WINDRES) -i "Numpy_private.rc" --input-format=rc -o "Numpy_private.res" -O coff $(WINDRESFLAGS) 
+

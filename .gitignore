@@ -1,0 +1,10 @@
+Numpy.dev
+Numpy.layout
+Numpy.bookmarks
+Numpy.debug
+
+*.exe
+*.o
+*.obj
+
+激励.txt
