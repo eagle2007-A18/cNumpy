@@ -2,6 +2,10 @@ Numpy.dev
 Numpy.layout
 Numpy.bookmarks
 Numpy.debug
+makefile.win
+Numpy_private.h
+Numpy_private.rc
+
 
 *.exe
 *.o
