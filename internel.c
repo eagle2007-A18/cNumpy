@@ -191,3 +191,26 @@ bool _calculate_shape(const ndarray *in1,const ndarray *in2,uint64_t *new_shape,
 		return true;
 	}
 }
+
+void _linear_to_coords(uint64_t linear_idx,uint8_t ndim,const uint64_t *shape,uint64_t *out){
+	if (ndim==0){
+		return;
+	}
+	for (int16_t d=(int16_t)ndim-1;d>=0;d--){
+		out[d]=linear_idx%shape[d];
+		linear_idx/=shape[d];
+	}
+}
+
+uint64_t _coords_to_linear(const uint64_t *in_coords,uint8_t ndim,uint64_t offset,const uint64_t *in_stride){
+	uint64_t curr=offset;
+	if (ndim==0){
+		return curr;
+	}
+	else{
+		for (uint8_t i=0;i<ndim;i++){
+			curr+=in_coords[i]*in_stride[i];
+		}
+		return curr;
+	}
+}
