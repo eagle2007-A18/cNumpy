@@ -99,19 +99,8 @@ static void _calculate_func(const ndarray *in1,const ndarray *in2,ndarray *out,u
 			_calculate_shape(in1,in2,new_shape,false);
 			
 			//计算输出总元素数和连续步长
-			for (uint8_t i1=0;i1<out_dim-1;i1++){
-				uint64_t curr=1;
-				for (uint8_t i2=i1+1;i2<out_dim;i2++){
-					curr*=new_shape[i2];
-				}
-				new_stride[i1]=curr;
-			}
-			new_stride[out_dim-1]=1;
-			
 			uint64_t total=1;
-			for (uint8_t i=0;i<out_dim;i++){
-				total*=new_shape[i];
-			}
+			_shape_to_stride_total(out_dim,new_shape,&total,new_stride);
 			
 			new_storage=(storage*)malloc(sizeof(storage));
 			new_data=(double*)malloc(total*sizeof(double));

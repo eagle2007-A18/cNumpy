@@ -214,3 +214,20 @@ uint64_t _coords_to_linear(const uint64_t *in_coords,uint8_t ndim,uint64_t offse
 		return curr;
 	}
 }
+
+void _shape_to_stride_total(uint8_t ndim,const uint64_t *shape,uint64_t *out_total,uint64_t *out_stride){
+	uint64_t curr1=1;
+	for (uint8_t i=0;i<ndim;i++){
+		curr1*=shape[i];
+	}
+	*out_total=curr1;
+	
+	for (uint8_t i1=0;i1<ndim-1;i1++){
+		uint64_t curr2=1;
+		for (uint8_t i2=i1+1;i2<ndim;i2++){
+			curr2*=shape[i2];
+		}
+		out_stride[i1]=curr2;
+	}
+	out_stride[ndim-1]=1;
+}

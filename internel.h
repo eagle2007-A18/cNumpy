@@ -15,4 +15,6 @@ void _linear_to_coords(uint64_t linear_idx,uint8_t ndim,const uint64_t *shape,ui
 
 uint64_t _coords_to_linear(const uint64_t *in_coords,uint8_t ndim,uint64_t offset,const uint64_t *in_stride);
 
+void _shape_to_stride_total(uint8_t ndim,const uint64_t *shape,uint64_t *out_total,uint64_t *out_stride);
+
 #endif
