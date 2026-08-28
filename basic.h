@@ -28,6 +28,11 @@
 #define NDARRAY_ERR_CANNOT_BROADCAST 60
 #define NDARRAY_ERR_WRONG_SHAPE 61
 
+//reduction部分错误码 80-100
+#define NDARRAY_ERR_WRONGDIM 81//dim必须大于0
+#define NDARRAY_ERR_DIM_OUT_OF_RANGE 82
+#define NDARRAY_ERR_DIM_REPEAT 83
+
 typedef struct storage{
 	double* data;
 	uint64_t refer_count;
