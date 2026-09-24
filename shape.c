@@ -1,6 +1,13 @@
 #include "numpy.h"
 #include "internel.h"
 
+static inline void _back(uint8_t *back_status,uint8_t kind){
+	if (back_status!=NULL){
+		*back_status=kind;
+	}
+	return;
+}
+
 void ndarray_reshape(const ndarray *in,uint8_t new_ndim,uint64_t *new_shape,ndarray *out,uint8_t *back_status){
 	
 }

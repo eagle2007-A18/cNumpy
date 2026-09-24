@@ -33,29 +33,33 @@
 #define NDARRAY_ERR_DIM_OUT_OF_RANGE 82
 #define NDARRAY_ERR_DIM_REPEAT 83
 
-typedef struct storage{
+//shape部分错误码
+#define NDARRAY_ERR_TOTAL_WRONG 101//变形时new_shape和原shape的元素总数不相等
+#define NDARRAY_ERR_SCALAR_CANNOT 102//标量不可进行
+
+typedef struct storage {
 	double* data;
 	uint64_t refer_count;
 	uint64_t total_num;
-}storage;
+} storage;
 
-typedef struct ndarray{
+typedef struct ndarray {
 	uint8_t ndim;
 	uint64_t *shape;
 	uint64_t *stride;
 	uint64_t offset;
 	uint64_t total_num;
 	storage *base;
-}ndarray;
+} ndarray;
 /*
 当ndarray是标量时：
-ndim=0  shape=NULL  stride=NULL total_size=1  
+ndim=0  shape=NULL  stride=NULL total_size=1
 */
 
-typedef struct Slice_index{
+typedef struct Slice_index {
 	uint8_t start;
 	uint8_t end;
 	uint8_t step;
-}Slice_index;
+} Slice_index;
 
 #endif
