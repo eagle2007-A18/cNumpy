@@ -9,6 +9,17 @@ static inline void _back(uint8_t *back_status,uint8_t kind){
 }
 
 void ndarray_reshape(const ndarray *in,uint8_t new_ndim,uint64_t *new_shape,ndarray *out,uint8_t *back_status){
+	//检查传入指针
+	if (in==NULL || new_shape==NULL || out==NULL){
+		_back(back_status,NDARRAY_ERR_NULLPTR);
+		return;
+	}
+	
+	if (new_ndim==0){
+		_back(back_status,NDARRAY_ERR_WRONGDIM);
+		return;
+	}
+	
 	
 }
 
