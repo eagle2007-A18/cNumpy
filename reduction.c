@@ -107,7 +107,7 @@ static void _calculate_out(const ndarray *in,
 
 void ndarray_sum(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool keepdim, ndarray *out, uint8_t *back_status) {
 	//传入指针检查
-	if (in==NULL || dim_list==NULL || out==NULL) {
+	if (in==NULL || dim_list==NULL || out==NULL || in->base==NULL) {
 		_back(back_status, NDARRAY_ERR_NULLPTR);
 		return;
 	}
@@ -254,7 +254,7 @@ void ndarray_sum(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool kee
 
 void ndarray_mean(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool keepdim, ndarray *out, uint8_t *back_status) {
 	//传入指针检查
-	if (in==NULL || dim_list==NULL || out==NULL) {
+	if (in==NULL || dim_list==NULL || out==NULL || in->base==NULL) {
 		_back(back_status, NDARRAY_ERR_NULLPTR);
 		return;
 	}
@@ -357,7 +357,7 @@ void ndarray_mean(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool ke
 
 		//形状校验通过，清空out对应的物理位置
 		uint64_t out_coords[UINT8_MAX];
-		for (uint64_t idx=0; idx<in->total_num; idx++) {
+		for (uint64_t idx=0; idx<out_total; idx++) {
 			_linear_to_coords(idx, out->ndim, out->shape, out_coords);
 			uint64_t offset=_coords_to_linear(out_coords, out->ndim, out->offset, out->stride);
 			out->base->data[offset]=0;
@@ -408,7 +408,7 @@ void ndarray_mean(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool ke
 
 void ndarray_variance(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool keepdim, ndarray *out, uint8_t *back_status) {
 	//传入指针检查
-	if (in==NULL || dim_list==NULL || out==NULL) {
+	if (in==NULL || dim_list==NULL || out==NULL || in->base==NULL) {
 		_back(back_status, NDARRAY_ERR_NULLPTR);
 		return;
 	}
@@ -511,7 +511,7 @@ void ndarray_variance(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, boo
 
 		//形状校验通过，清空out对应的物理位置
 		uint64_t out_coords[UINT8_MAX];
-		for (uint64_t idx=0; idx<in->total_num; idx++) {
+		for (uint64_t idx=0; idx<out_total; idx++) {
 			_linear_to_coords(idx, out->ndim, out->shape, out_coords);
 			uint64_t offset=_coords_to_linear(out_coords, out->ndim, out->offset, out->stride);
 			out->base->data[offset]=0;
@@ -620,7 +620,7 @@ void ndarray_variance(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, boo
 
 void ndarray_max(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool keepdim, ndarray *out, uint8_t *back_status) {
 	//传入指针检查
-	if (in==NULL || dim_list==NULL || out==NULL) {
+	if (in==NULL || dim_list==NULL || out==NULL || in->base==NULL) {
 		_back(back_status, NDARRAY_ERR_NULLPTR);
 		return;
 	}
@@ -728,7 +728,7 @@ void ndarray_max(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool kee
 
 		//形状校验通过，将out对应的物理位置置为无穷小
 		uint64_t out_coords[UINT8_MAX];
-		for (uint64_t idx=0; idx<in->total_num; idx++) {
+		for (uint64_t idx=0; idx<out_total; idx++) {
 			_linear_to_coords(idx, out->ndim, out->shape, out_coords);
 			uint64_t offset=_coords_to_linear(out_coords, out->ndim, out->offset, out->stride);
 			out->base->data[offset]=-INFINITY;
@@ -777,7 +777,7 @@ void ndarray_max(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool kee
 
 void ndarray_min(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool keepdim, ndarray *out, uint8_t *back_status) {
 	//传入指针检查
-	if (in==NULL || dim_list==NULL || out==NULL) {
+	if (in==NULL || dim_list==NULL || out==NULL || in->base==NULL) {
 		_back(back_status, NDARRAY_ERR_NULLPTR);
 		return;
 	}
@@ -885,7 +885,7 @@ void ndarray_min(const ndarray *in, uint8_t dim_num, uint8_t *dim_list, bool kee
 
 		//形状校验通过，把out对应的物理位置置为无穷大
 		uint64_t out_coords[UINT8_MAX];
-		for (uint64_t idx=0; idx<in->total_num; idx++) {
+		for (uint64_t idx=0; idx<out_total; idx++) {
 			_linear_to_coords(idx, out->ndim, out->shape, out_coords);
 			uint64_t offset=_coords_to_linear(out_coords, out->ndim, out->offset, out->stride);
 			out->base->data[offset]=INFINITY;

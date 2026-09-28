@@ -35,7 +35,7 @@
 
 //shape部分错误码
 #define NDARRAY_ERR_TOTAL_WRONG 101//变形时new_shape和原shape的元素总数不相等
-#define NDARRAY_ERR_SCALAR_CANNOT 102//标量不可进行
+#define NDARRAY_ERR_SCALAR_CANNOT_RESHAPE 102//标量不可进行
 
 typedef struct storage {
 	double* data;
