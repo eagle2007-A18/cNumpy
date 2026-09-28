@@ -15,3 +15,5 @@ Numpy_private.rc
 calculate_pic.png
 *.a
 *.res
+
+test/

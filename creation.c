@@ -348,7 +348,7 @@ ndarray* ndarray_copy(const ndarray *from, uint8_t *back_status) {
 		new_ndarray->offset=0;
 		new_ndarray->shape=NULL;
 		new_ndarray->stride=NULL;
-		new_storage->data[0]=from->base->data[0];
+		new_storage->data[0]=from->base->data[from->offset];
 		if (back_status!=NULL) {
 			*back_status=NDARRAY_OK;
 		}
@@ -377,7 +377,7 @@ ndarray* ndarray_copy(const ndarray *from, uint8_t *back_status) {
 			//连续
 			uint64_t src_offset=from->offset;
 			for (uint64_t i=0; i<from->total_num; i++) {
-				new_storage->data[i]=from->base->data[src_offset+i];
+				data[i]=from->base->data[src_offset+i];
 			}
 		}
 		else {
