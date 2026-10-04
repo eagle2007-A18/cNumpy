@@ -57,8 +57,8 @@ ndim=0  shape=NULL  stride=NULL total_size=1
 */
 
 typedef struct Slice_index {
-	uint8_t start;
-	uint8_t end;
+	uint64_t start;
+	uint64_t end;
 	uint8_t step;
 } Slice_index;
 

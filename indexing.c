@@ -19,7 +19,7 @@ void get_number(const ndarray *in, uint64_t *index, double *ans, uint8_t *back_s
 			return;
 		}
 		else {
-			*ans=in->base->data[0];
+			*ans=in->base->data[in->offset];
 			if (back_status!=NULL) {
 				*back_status=NDARRAY_OK;
 			}
@@ -67,7 +67,7 @@ void change_number(ndarray *in, uint64_t *index, double new_number, uint8_t *bac
 			return;
 		}
 		else {
-			in->base->data[0]=new_number;
+			in->base->data[in->offset]=new_number;
 			if (back_status!=NULL) {
 				*back_status=NDARRAY_OK;
 			}

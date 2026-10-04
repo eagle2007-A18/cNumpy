@@ -257,6 +257,9 @@ void ndarray_free(ndarray *in) {
 }
 
 void ndarray_empty(ndarray *in) {
+	if (in==NULL){
+		return;
+	}
 	if (in->base==NULL) {
 		in->ndim = 0;
 		in->shape = NULL;
@@ -349,6 +352,7 @@ ndarray* ndarray_copy(const ndarray *from, uint8_t *back_status) {
 		new_ndarray->shape=NULL;
 		new_ndarray->stride=NULL;
 		new_storage->data[0]=from->base->data[from->offset];
+		new_storage->total_num=1;
 		if (back_status!=NULL) {
 			*back_status=NDARRAY_OK;
 		}
@@ -425,6 +429,12 @@ cleanup1:
 }
 
 ndarray* ndarray_view(const ndarray *father, uint8_t *back_status) {
+	if (father==NULL){
+		if (back_status!=NULL){
+			*back_status=NDARRAY_ERR_NULLPTR;
+		}
+		return NULL;
+	}
 	if (father->base==NULL) {
 		if (back_status!=NULL) {
 			*back_status=NDARRAY_ERR_EMPTY_VIEW;
